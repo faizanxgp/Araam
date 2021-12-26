@@ -1,0 +1,568 @@
+-- phpMyAdmin SQL Dump
+-- version 4.0.4.1
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: Feb 29, 2016 at 07:23 AM
+-- Server version: 5.5.32
+-- PHP Version: 5.4.16
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Database: `araampk`
+--
+CREATE DATABASE IF NOT EXISTS `araampk` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `araampk`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin_table`
+--
+
+CREATE TABLE IF NOT EXISTS `admin_table` (
+  `id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `fb_userid` bigint(20) DEFAULT NULL,
+  `email` varchar(254) DEFAULT NULL,
+  `cryptpass` varchar(254) NOT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `mobile` varchar(20) NOT NULL,
+  `status` enum('enabled','disabled','restricted','deleted') NOT NULL,
+  `lastlogin` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `email` (`email`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4325 ;
+
+--
+-- Dumping data for table `admin_table`
+--
+
+INSERT INTO `admin_table` (`id`, `name`, `fb_userid`, `email`, `cryptpass`, `phone`, `mobile`, `status`, `lastlogin`) VALUES
+(2, 'Ayaz', 0, 'admin@yahoo.com', 'arOgfQ.2A3zKI', '0300-2700-372', '', 'enabled', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `area`
+--
+
+CREATE TABLE IF NOT EXISTS `area` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `area` varchar(254) NOT NULL,
+  `status` enum('active','inactive') NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `area`
+--
+
+INSERT INTO `area` (`id`, `area`, `status`) VALUES
+(1, 'Lahore', 'active'),
+(2, 'Karachi', 'active'),
+(3, 'add here', 'active');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bids`
+--
+
+CREATE TABLE IF NOT EXISTS `bids` (
+  `id` int(11) NOT NULL,
+  `servicerequest_id` int(11) NOT NULL,
+  `provider_id` int(11) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `message` text NOT NULL,
+  `status` enum('bid','selected') NOT NULL,
+  `points` int(11) NOT NULL,
+  `dateadded` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customers`
+--
+
+CREATE TABLE IF NOT EXISTS `customers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `customername` varchar(100) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `email` varchar(254) NOT NULL,
+  `cryptpass` varchar(254) NOT NULL,
+  `status` enum('active','inactive') NOT NULL,
+  `datecreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `lastlogin` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `customers`
+--
+
+INSERT INTO `customers` (`id`, `customername`, `phone`, `email`, `cryptpass`, `status`, `datecreated`, `lastlogin`) VALUES
+(1, 'test', '', 'customer1@yahoo.com', 'arOgfQ.2A3zKI', 'active', '2016-02-09 06:59:51', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `membership`
+--
+
+CREATE TABLE IF NOT EXISTS `membership` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `provider_id` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `amount` decimal(10,0) NOT NULL,
+  `mtype` varchar(10) NOT NULL,
+  `reference` varchar(254) NOT NULL,
+  `receivedfrom` varchar(50) NOT NULL,
+  `points` int(11) NOT NULL,
+  `datecreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `providerareas`
+--
+
+CREATE TABLE IF NOT EXISTS `providerareas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `provider_id` int(11) NOT NULL,
+  `area_id` int(11) NOT NULL,
+  `subarea_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+
+--
+-- Dumping data for table `providerareas`
+--
+
+INSERT INTO `providerareas` (`id`, `provider_id`, `area_id`, `subarea_id`) VALUES
+(12, 1, 0, 1),
+(13, 1, 0, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `providers`
+--
+
+CREATE TABLE IF NOT EXISTS `providers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `contact_person` varchar(100) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `mobile` varchar(20) NOT NULL,
+  `email` varchar(254) NOT NULL,
+  `cryptpass` varchar(254) NOT NULL,
+  `company_name` varchar(100) NOT NULL,
+  `registration` varchar(30) NOT NULL,
+  `address` varchar(254) NOT NULL,
+  `city` varchar(30) NOT NULL,
+  `postcode` varchar(20) NOT NULL,
+  `website` varchar(254) NOT NULL,
+  `fb` varchar(100) NOT NULL,
+  `status` enum('active','inactive') NOT NULL,
+  `datecreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `lastlogin` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `providers`
+--
+
+INSERT INTO `providers` (`id`, `contact_person`, `phone`, `mobile`, `email`, `cryptpass`, `company_name`, `registration`, `address`, `city`, `postcode`, `website`, `fb`, `status`, `datecreated`, `lastlogin`) VALUES
+(1, 'ayaz ahmed', '03001234567', '03332134455', 'contractor1@yahoo.com', 'arOgfQ.2A3zKI', '', 'register', 'address here', 'Islamabad', 'postcode', 'http:test.com', 'none', 'active', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 'test', '', '', 'contractor2@yahoo.com', 'arOgfQ.2A3zKI', '', '', '', '', '', '', '', 'active', '2016-02-17 12:23:18', '0000-00-00 00:00:00'),
+(3, 'saasdfasdf', '12321321', '234234', 'thangpil@gmail.com', '', 'asfdasd', '', 'asfasdf', 'asdfasdfasdf', '', '', '', 'active', '2016-02-24 04:49:01', '0000-00-00 00:00:00'),
+(4, 'ayaz ahemd', '03008210313', '03332134396', 'test@yahoo.com', '', 'my test company', '', 'some where', 'karachi', '', '', '', 'active', '2016-02-24 04:54:24', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `providerservices`
+--
+
+CREATE TABLE IF NOT EXISTS `providerservices` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `provider_id` int(11) NOT NULL,
+  `service_id` int(11) NOT NULL,
+  `subservice_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `providerservices`
+--
+
+INSERT INTO `providerservices` (`id`, `provider_id`, `service_id`, `subservice_id`) VALUES
+(1, 1, 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `service`
+--
+
+CREATE TABLE IF NOT EXISTS `service` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `service` varchar(254) NOT NULL,
+  `points` int(11) NOT NULL,
+  `status` enum('active','inactive') NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+
+--
+-- Dumping data for table `service`
+--
+
+INSERT INTO `service` (`id`, `service`, `points`, `status`) VALUES
+(1, 'Housekeeping services', 10, 'active'),
+(2, 'Interior Designer\n', 20, 'active'),
+(3, 'Construction & renovation\n', 0, 'active'),
+(4, 'Electric & wiring\n', 0, ''),
+(5, 'Carpenter', 0, ''),
+(6, 'Renovation & improvement', 0, ''),
+(7, 'Appliance service & repair', 0, ''),
+(8, 'Architecture', 0, ''),
+(9, 'Landscaping & gardening', 0, ''),
+(10, 'Automotive & Transport', 0, ''),
+(11, 'Movers and relocators', 0, ''),
+(12, 'Car rental & buying', 0, ''),
+(13, 'Real estate', 0, ''),
+(14, 'Event planners', 0, ''),
+(15, 'Food and beverage', 0, ''),
+(16, 'Saloon services', 0, ''),
+(17, 'Office events & space rental', 0, ''),
+(18, 'Web designers', 0, ''),
+(19, 'IT & Mobile', 0, ''),
+(20, 'Photographers & videographers', 0, '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `servicequestions`
+--
+
+CREATE TABLE IF NOT EXISTS `servicequestions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `service_id` int(11) NOT NULL,
+  `question_number` int(11) NOT NULL,
+  `question_text` varchar(254) NOT NULL,
+  `question_type` enum('textbox','textarea','radio','checkbox') NOT NULL,
+  `question_choices` varchar(254) NOT NULL,
+  `question_others` enum('yes','no') NOT NULL,
+  `status` enum('active','inactive') NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `service_id_question_number` (`service_id`,`question_number`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `servicequestions`
+--
+
+INSERT INTO `servicequestions` (`id`, `service_id`, `question_number`, `question_text`, `question_type`, `question_choices`, `question_others`, `status`) VALUES
+(1, 1, 1, 'test', 'textbox', '', 'yes', 'active'),
+(2, 1, 2, 'question 2', 'textarea', '', 'no', ''),
+(3, 1, 3, 'question 3', 'radio', 'a,b,c,d', 'yes', ''),
+(4, 1, 4, 'question 4', 'checkbox', 'aa,bb,cc,dd', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `servicerequest`
+--
+
+CREATE TABLE IF NOT EXISTS `servicerequest` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `service_id` int(11) NOT NULL,
+  `subservice_id` int(11) NOT NULL,
+  `area_id` int(11) NOT NULL,
+  `subarea_id` int(11) NOT NULL,
+  `question_1` varchar(254) NOT NULL,
+  `question_2` varchar(254) NOT NULL,
+  `question_3` varchar(254) NOT NULL,
+  `question_4` varchar(254) NOT NULL,
+  `question_5` varchar(254) NOT NULL,
+  `question_6` varchar(254) NOT NULL,
+  `expected_date` date NOT NULL,
+  `estimated_date` varchar(100) NOT NULL,
+  `service_description` text NOT NULL,
+  `attach1` varchar(254) NOT NULL,
+  `attach2` varchar(254) NOT NULL,
+  `attach3` varchar(254) NOT NULL,
+  `attach4` varchar(254) NOT NULL,
+  `attach5` varchar(254) NOT NULL,
+  `requestby` varchar(254) NOT NULL,
+  `email` varchar(254) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `promocode` varchar(100) NOT NULL,
+  `datecreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `servicerequest`
+--
+
+INSERT INTO `servicerequest` (`id`, `user_id`, `service_id`, `subservice_id`, `area_id`, `subarea_id`, `question_1`, `question_2`, `question_3`, `question_4`, `question_5`, `question_6`, `expected_date`, `estimated_date`, `service_description`, `attach1`, `attach2`, `attach3`, `attach4`, `attach5`, `requestby`, `email`, `phone`, `promocode`, `datecreated`) VALUES
+(1, 1, 1, 1, 1, 1, '', '', '', '', '', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00 00:00:00'),
+(2, 1, 2, 2, 2, 0, '', '', '', '', '', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '2016-02-09 06:44:55');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `subarea`
+--
+
+CREATE TABLE IF NOT EXISTS `subarea` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `subarea` varchar(254) NOT NULL,
+  `area_id` int(11) NOT NULL,
+  `status` enum('active','inactive') NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=115 ;
+
+--
+-- Dumping data for table `subarea`
+--
+
+INSERT INTO `subarea` (`id`, `subarea`, `area_id`, `status`) VALUES
+(63, 'Model Town', 1, 'active'),
+(64, 'Gulberg', 1, 'active'),
+(65, 'defence', 1, 'active'),
+(66, 'Shalimar Town', 1, 'active'),
+(67, 'Samanabad Town', 1, 'active'),
+(68, 'Iqbal Town', 1, 'active'),
+(69, 'lahore cantt', 1, 'active'),
+(70, 'Garden Town Lahore', 1, 'active'),
+(71, 'model town', 1, 'active'),
+(72, 'faisal town', 1, 'active'),
+(73, 'johor town', 1, 'active'),
+(74, 'bahria town', 1, 'active'),
+(75, 'wapda town', 1, 'active'),
+(76, 'shadman', 1, 'active'),
+(77, 'Eden Gardens', 1, 'active'),
+(78, 'TECH Society', 1, 'active'),
+(79, 'PCSIR', 1, 'active'),
+(80, 'State Life Housing Society', 1, 'active'),
+(81, 'Canal View Housing Society', 1, 'active'),
+(82, 'other', 1, 'active'),
+(83, 'Punjab Housing Society', 1, 'active'),
+(84, 'Bahria Town', 2, 'active'),
+(85, 'Askari Housing Scheme', 2, 'active'),
+(86, 'Chaklala Housing Scheme', 2, 'active'),
+(87, 'Gulraiz Housing Scheme', 2, 'active'),
+(88, 'Satellite Town Rawalpindi', 2, 'active'),
+(89, 'Media Town', 2, 'active'),
+(90, 'Gulzar-E-Quaid', 2, 'active'),
+(91, 'PWD Colony', 2, 'active'),
+(92, 'Gulistan Colony', 2, 'active'),
+(93, 'Lalazar Colony', 2, 'active'),
+(94, 'westridge', 2, 'active'),
+(95, 'peshawar road', 2, 'active'),
+(96, 'cantonment', 2, 'active'),
+(97, 'valley road', 2, 'active'),
+(98, 'cantt', 2, 'active'),
+(99, 'shakshehzad', 2, 'active'),
+(100, 'other', 2, 'active'),
+(101, 'defence', 3, 'active'),
+(102, 'bahria', 3, 'active'),
+(103, 'f sector', 3, 'active'),
+(104, 'e sector', 3, 'active'),
+(105, 'g sector', 3, 'active'),
+(106, 'Gulberg Green', 3, 'active'),
+(107, 'bani gala', 3, 'active'),
+(108, 'Naval Anchorage', 3, 'active'),
+(109, 'Jinnah Garden', 3, 'active'),
+(110, 'Soan Gardens', 3, 'active'),
+(111, 'University Town', 3, 'active'),
+(112, 'margalla town', 3, 'active'),
+(113, 'Pakistan Colony', 3, 'active'),
+(114, 'other', 3, 'active');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `subservice`
+--
+
+CREATE TABLE IF NOT EXISTS `subservice` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `subservice` varchar(254) NOT NULL,
+  `service_id` int(11) NOT NULL,
+  `status` enum('active','inactive') NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `category_id` (`service_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=204 ;
+
+--
+-- Dumping data for table `subservice`
+--
+
+INSERT INTO `subservice` (`id`, `subservice`, `service_id`, `status`) VALUES
+(1, 'Maid service', 1, 'active'),
+(2, 'House cleaning', 1, 'active'),
+(3, 'Office/commercial cleaning', 1, 'active'),
+(4, 'Upholstery cleaning', 1, 'active'),
+(5, 'Swimming Pool Cleaning', 1, 'active'),
+(6, 'Event /party cleanup', 1, 'active'),
+(7, 'Moving Out, After Renovation, Thorough Cleaning', 1, 'active'),
+(8, 'Pest control/ Fumigation', 1, 'active'),
+(9, 'Water tank cleaning', 1, 'active'),
+(10, 'Carpet service', 1, 'active'),
+(11, 'OTHER (if any other services you offer)', 1, 'active'),
+(16, 'Interior design consultancy', 2, 'active'),
+(17, 'Curtain & Drapes Making and Installation', 2, 'active'),
+(18, 'Wallpaper Supply / Installation', 2, 'active'),
+(19, 'Space Planning / Furniture Positioning', 2, 'active'),
+(20, 'Illustration / 2 D Or 3 D Animation', 2, 'active'),
+(21, 'OTHER (if any other services you offer)', 2, 'active'),
+(25, 'Plumbing repair', 3, 'active'),
+(26, 'Plumbing installation', 3, 'active'),
+(27, 'Water heater installation', 3, 'active'),
+(28, 'Water heater repair', 3, 'active'),
+(29, 'Geyser repair/installation', 3, 'active'),
+(30, 'Water proofing repair/installation', 3, 'active'),
+(31, 'Water tank repair/installation', 3, 'active'),
+(32, 'Other (specify any other service you offer)', 3, 'active'),
+(36, 'Wiring/PowerPoint', 4, 'active'),
+(37, 'Lighting installation', 4, 'active'),
+(38, 'Lighting repair', 4, 'active'),
+(39, 'Fan installation', 4, 'active'),
+(40, 'phase wiring', 4, 'active'),
+(41, 'OTHER (specify any other service you offer)', 4, 'active'),
+(44, 'Repair and maintenance', 5, 'active'),
+(45, 'Installation and construction', 5, 'active'),
+(46, 'Other (specify any other service you offer)', 5, 'active'),
+(49, 'Tiling Repair', 6, 'active'),
+(50, 'Tiling Installation', 6, 'active'),
+(51, 'Flooring Repair / Replacement', 6, 'active'),
+(52, 'Plastering', 6, 'active'),
+(53, 'Aluminum Work', 6, 'active'),
+(54, 'Ironwork', 6, 'active'),
+(55, 'Window Tinting', 6, 'active'),
+(56, 'General contracting / Handyman', 6, 'active'),
+(57, 'Painter', 6, 'active'),
+(58, 'Roofing Installation', 6, 'active'),
+(59, 'Ceiling And Flooring Design', 6, 'active'),
+(60, 'Cabinetry', 6, 'active'),
+(61, 'Glasswork', 6, 'active'),
+(62, 'Flooring Installation', 6, 'active'),
+(63, 'Door Installation', 6, 'active'),
+(64, 'Concreting', 6, 'active'),
+(65, 'Window Installation', 6, 'active'),
+(66, 'OTHER (specify any other service you offer', 6, 'active'),
+(69, 'Air-condition service and repair', 7, 'active'),
+(70, 'Home Appliance Installation', 7, 'active'),
+(71, 'Air-condition (installation)', 7, 'active'),
+(72, 'Ups repair and install', 7, 'active'),
+(73, 'Air-condition supply', 7, 'active'),
+(74, 'OTHER (specify any other service you offer)', 7, 'active'),
+(77, 'Design and planning', 8, 'active'),
+(78, 'AutoCAD', 8, 'active'),
+(79, 'Managing', 8, 'active'),
+(80, 'OTHER (specify any other service you offer)', 8, 'active'),
+(84, 'Gardener', 9, 'active'),
+(85, 'Planning', 9, 'active'),
+(86, 'OTHER (specify any other service you offer)', 9, 'active'),
+(90, 'Car tinting', 10, 'active'),
+(91, 'Car wax and polish', 10, 'active'),
+(92, 'Car repair and services', 10, 'active'),
+(93, 'Car carpeting', 10, 'active'),
+(94, 'Oil change', 10, 'active'),
+(95, 'OTHER (specify any other service you offer)', 10, 'active'),
+(98, 'Movers', 11, 'active'),
+(99, 'Local moving', 11, 'active'),
+(100, 'Long distance moving', 11, 'active'),
+(101, 'OTHER (specify any other service you offer)', 11, 'active'),
+(105, 'Buy a car', 12, 'active'),
+(106, 'Rent a car', 12, 'active'),
+(107, 'OTHER (specify any other service you offer)', 12, 'active'),
+(111, 'New developments', 13, 'active'),
+(112, 'For rent', 13, 'active'),
+(113, 'For sale', 13, 'active'),
+(114, 'Plots', 13, 'active'),
+(115, 'OTHER (specify any other service you offer)', 13, 'active'),
+(118, 'Engagement/Wedding/Birthday/bridal & baby shower Planning', 14, 'active'),
+(119, 'AV Equipment', 14, 'active'),
+(120, 'Tents/ marquee', 14, 'active'),
+(121, 'Chairs/Tables Rental', 14, 'active'),
+(122, 'Gifts/ bid designing/Goody bags', 14, 'active'),
+(123, 'Lighting', 14, 'active'),
+(124, 'Florist', 14, 'active'),
+(125, 'space rental', 14, 'active'),
+(126, 'Wedding Card (Printing/Design)', 14, 'active'),
+(127, 'DJ', 14, 'active'),
+(128, 'Other (specify any other service you offer)', 14, 'active'),
+(132, 'Custom Cakes', 15, 'active'),
+(133, 'Wedding Cakes', 15, 'active'),
+(134, 'Birthday cake', 15, 'active'),
+(135, 'Engagement cake', 15, 'active'),
+(136, 'Corporate cake', 15, 'active'),
+(137, 'Cookies & Pastries', 15, 'active'),
+(138, 'Custom cakes (tiered)', 15, 'active'),
+(139, 'Caterer (One-off)', 15, 'active'),
+(140, 'Caterer', 15, 'active'),
+(141, 'OTHER (specify any other service you offer)', 15, 'active'),
+(144, 'Wedding / Bridal Makeup', 16, 'active'),
+(145, 'Pre Wedding Hair Styling', 16, 'active'),
+(146, 'Event hair and makeup', 16, 'active'),
+(147, 'Event makeup', 16, 'active'),
+(148, 'Party / Formal Makeup', 16, 'active'),
+(149, 'Fashion Show Makeup', 16, 'active'),
+(150, 'Musical / Theatre Makeup', 16, 'active'),
+(151, 'Photo / Video Shoot Hair Styling', 16, 'active'),
+(152, 'OTHER (specify any other service you offer)', 16, 'active'),
+(156, 'Tents/marquee', 17, 'active'),
+(157, 'Band', 17, 'active'),
+(158, 'Offline printing/design', 17, 'active'),
+(159, 'Corporate Event planning', 17, 'active'),
+(160, 'Space rental (Temporary Office Rental (Agency)', 17, 'active'),
+(161, 'OTHER (specify any other service you offer)', 17, 'active'),
+(165, 'Search optimization (SEO)', 18, 'active'),
+(166, 'Website development', 18, 'active'),
+(167, 'Graphic illustration', 18, 'active'),
+(168, 'Web hosting', 18, 'active'),
+(169, 'Domain registration', 18, 'active'),
+(170, 'Product photography', 18, 'active'),
+(171, 'Facebook marketing', 18, 'active'),
+(172, 'Animation', 18, 'active'),
+(173, 'Social media marketing', 18, 'active'),
+(174, 'OTHER (specify any other service you offer)', 18, 'active'),
+(177, 'Repair', 19, 'active'),
+(178, 'Pin unlock', 19, 'active'),
+(179, 'Used mobile phone', 19, 'active'),
+(180, 'New mobile phone', 19, 'active'),
+(181, 'Mobile phone cases', 19, 'active'),
+(182, 'Laptop and desktop repair', 19, 'active'),
+(183, 'Buy laptop and desktop', 19, 'active'),
+(184, 'Printers & scanners', 19, 'active'),
+(185, 'Wi-Fi devices', 19, 'active'),
+(186, 'PC & Mac Hardware / Software Update', 19, 'active'),
+(187, 'PC & Mac Hardware / Software repair', 19, 'active'),
+(188, 'Networking - Installation / Configuration', 19, 'active'),
+(189, 'Apple', 19, 'active'),
+(190, 'OTHER (specify any other service you offer)', 19, 'active'),
+(191, 'Wedding photography', 20, 'active'),
+(192, 'Wedding videography', 20, 'active'),
+(193, 'Events photography', 20, 'active'),
+(194, 'Events videography', 20, 'active'),
+(195, 'Portrait/studio photography', 20, 'active'),
+(196, 'Commercial photography', 20, 'active'),
+(197, 'Family portrait photography', 20, 'active'),
+(198, 'Pre wedding videography', 20, 'active'),
+(199, 'Pre wedding photography', 20, 'active'),
+(200, 'Studio photography', 20, 'active'),
+(201, 'Maternity photography', 20, 'active'),
+(202, 'Baby photography', 20, 'active'),
+(203, 'OTHER (specify any other service you offer)', 20, 'active');

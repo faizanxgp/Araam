@@ -1,0 +1,62 @@
+RewriteEngine on
+
+#resolve .php file for extensionless php urls
+
+#RewriteCond %{REQUEST_FILENAME}\.php -f
+#RewriteRule ^(.*)$ $1.php [L]
+
+# main
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^/]+)$ index.php?$1 [L]
+
+# main/ac-action
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^/]+)/ac-([^/]+)$ index.php?$1&action=$2 [L]
+
+# main/sub
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^/]+)/([^/]+)$ index.php?$1/$2 [L]
+
+# main/id-number/ac-action
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^/]+)/id-([^/]+)/ac-([^/]+)$ index.php?$1&id=$2&action=$3 [L]
+
+# main/sub/ac-action
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^/]+)/([^/]+)/ac-([^/]+)$ index.php?$1/$2&action=$3 [L]
+
+# main/sub/id-number/ac-action
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^/]+)/([^/]+)/id-([^/]+)/ac-([^/]+)$ index.php?$1/$2&id=$3&action=$4 [L]
+
+
+
+#contractors 
+
+# contractor/ac-action
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^contractor/ac-([^/]+)$ index.php?contractor&action=$1 [L]
+
+# contractor/sub
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^contractor/([^/]+)$ index.php?contractor/$1 [L]
+
+# contractor/sub/ac-action
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^contractor/([^/]+)/ac-([^/]+)$ index.php?contractor/$1&action=$2 [L]
+
+# contractor/sub/id-number/ac-action
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^contractor/([^/]+)/id-([^/]+)/ac-([^/]+)$ index.php?contractor/$1&id=$2&action=$3 [L]
+
+

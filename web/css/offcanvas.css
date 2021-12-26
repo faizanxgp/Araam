@@ -1,0 +1,154 @@
+/* 
+    Document   : offcanvas
+    Created on : Mar 19, 2014, 12:49:29 PM
+    Author     : Ayaz
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+@media only screen and (max-width: 768px) {
+    header {
+        position: relative;
+    }
+    #top-row {
+        height: auto;
+    }
+    #top-row .floatcenter {
+        text-align: left;
+        
+    }
+    #top-header ul.nav-menu {
+        margin-left: 0px;
+        width: 100%;
+        margin-bottom: 0px;
+    }
+    #top-header .nav-menu2 {
+        
+        width: 100%;
+    }
+    #searchid {
+        width: 400px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    #result {
+        width: 350px;
+    }
+    .nav-collapse, .nav-collapse.collapse {
+        overflow: visible;
+    }
+    .nav-collapse .nav > li {
+        float: left;
+    }
+    
+    #content-wrapper {
+        padding-top: 0px;
+    }
+    .mainpage-action, .mainpage-action-top {
+        display: none;
+    }
+    .tdtop, .tdtop2 {
+        width: 100%;
+    }
+    #cart, #cart-body {
+        width: 100%;
+    }
+    #contents .span3 {
+        clear: both;
+    }
+}
+
+
+@media only screen and (min-width: 600px) {
+
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 960px) {
+    #top-row {
+        height: 35px;
+        
+    }
+    #top-row .row .span3,
+    #top-row .row .span5,
+    #top-row .row .span4 {
+        float: left;
+    }
+    
+    #top-header .logo {
+        margin-top: -26px;
+    }
+    #top-header ul.nav-menu {
+        margin-left: 0px;
+        width: 330px;
+        
+    }
+    #top-header .nav-menu2 {
+        width: 360px;
+    }
+    #searchid {
+        width: 350px;
+    }
+    #result {
+        width: 350px;
+    }
+    .nav-collapse, .nav-collapse.collapse {
+        overflow: visible;
+    }
+    
+    .nav-collapse .nav > li {
+        float: left;
+    }
+    #content-wrapper {
+        padding-top: 200px;
+    }
+    .mainpage-action-top {
+        left: -25px;
+    }
+    .mainpage-action {
+        left: 0px;
+    }
+    .tdtop, .tdtop2 {
+        float: none;
+        padding-left: 0px;
+        width: 100%;
+    }
+    #cart table {
+        width: 100%;
+    }
+    .specialinstructions {
+        width: 100%;
+    }
+}
+
+
+@media only screen and (min-width: 961px) and (max-width: 1199px) {
+    #top-row {
+        height: 35px
+    }
+    #top-header .logo {
+        margin-top: -26px;
+        margin-top: 0px;
+    }
+    .nav-cover {
+        margin-top: 0px;
+    }
+    #content-wrapper {
+        padding-top: 110px;
+    }
+    #searchid {
+        width: 350px;
+    }
+    
+    .mainpage-action {
+        left: 47px;
+    }
+    
+    
+    .tdtop2 {
+        width: 295px;
+    }
+    
+    
+}

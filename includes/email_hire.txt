@@ -1,0 +1,27 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<div style="background-color: #fff; font-family: Arial;">
+	<div style="background-color: #eee; width: 100%;">
+		<div align="center" style="max-width: 700px; margin: 0 auto; padding: 10px 0px;">
+			<img src="http://app.araam.pk/web/img/logo.png" alt="" />
+		</div>
+	</div>
+	<div style="max-width: 700px; padding:20px 0px; margin: 0 auto">
+Dear %provider_name%, <br /><br />
+
+You are hired, please login and check project details.<br /><br />
+
+Team Araam <br /><br />
+
+	
+	</div>
+	<div style="background-color: #eee; width: 700px; margin: 0 auto; padding: 10px;">
+		<p>&copy; Araam.pk</p>
+	</div>
+</div>
+</body>

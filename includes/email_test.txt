@@ -1,0 +1,8 @@
+Just a test file
+%user_name% 
+
+something
+
+%user_email%
+
+antoher
